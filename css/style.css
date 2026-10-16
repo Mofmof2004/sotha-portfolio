@@ -687,12 +687,11 @@ h1, h2, h3 {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    /* vh is calculated inconsistently in portrait on mobile browsers
-       (address bar show/hide throws it off); dvh tracks the actual visible
-       viewport and fixes it. Keep vh first as a fallback for older browsers
-       that don't support dvh. */
+    /* vh/dvh are both unreliable here across mobile browser versions, so
+       the real height is measured in JS and stored in --vh100 (see
+       main.js). Falls back to 75vh if JS hasn't run yet (e.g. first paint). */
     height: 75vh;
-    height: 75dvh;
+    height: calc(var(--vh100, 100vh) * 0.75);
     scrollbar-width: none;
   }
 
