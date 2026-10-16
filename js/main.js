@@ -54,6 +54,14 @@ const showcaseGrid = document.querySelector('.showcase-grid');
 const showcaseTiles = document.querySelectorAll('.showcase-tile');
 
 if (showcaseGrid && showcaseTiles.length > 1) {
+  // Must match the CSS media query exactly (max-width: 860px), (orientation:
+  // portrait) - otherwise JS can compute desktop squeeze-widths while CSS
+  // renders the mobile carousel (or vice versa), and the two fight each
+  // other: inline flex-basis from JS wins over CSS, causing tiles to
+  // overflow sideways off a portrait screen.
+  const mobileQuery = window.matchMedia('(max-width: 860px), (orientation: portrait)');
+  const isMobileLayout = () => mobileQuery.matches;
+
   // Natural width/height ratio of each poster, in DOM order, so the
   // expanded width matches the image exactly instead of leaving black
   // bars (portrait posters) or still cropping (wide posters).
@@ -170,7 +178,7 @@ if (showcaseGrid && showcaseTiles.length > 1) {
 
   const applyLayout = () => {
     const displayIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
-    const isRowLayout = window.innerWidth > 860;
+    const isRowLayout = !isMobileLayout();
 
     if (isRowLayout) {
       // Every tile gets an explicit pixel flex-basis (never a mix of px and
@@ -212,7 +220,7 @@ if (showcaseGrid && showcaseTiles.length > 1) {
     // No ambient auto-expand on the mobile swipe carousel - navigation is
     // manual there (swipe), so cycling in the background would just fight
     // the user's own swipes and silently pre-load video off-screen.
-    if (window.innerWidth <= 860) return;
+    if (isMobileLayout()) return;
     intervalId = setInterval(() => {
       activeIndex = (activeIndex + 1) % showcaseTiles.length;
       applyLayout();
@@ -249,7 +257,7 @@ if (showcaseGrid && showcaseTiles.length > 1) {
   let mobileScrollTimer = null;
 
   showcaseGrid.addEventListener('scroll', () => {
-    if (window.innerWidth > 860) return;
+    if (!isMobileLayout()) return;
     clearTimeout(mobileScrollTimer);
     mobileScrollTimer = setTimeout(() => {
       const index = Math.round(showcaseGrid.scrollLeft / showcaseGrid.clientWidth);
@@ -264,7 +272,7 @@ if (showcaseGrid && showcaseTiles.length > 1) {
   applyLayout();
   startCycle();
 
-  if (window.innerWidth <= 860) {
+  if (isMobileLayout()) {
     mobileSettledIndex = 0;
     handleDisplayChange(0);
   }
@@ -274,7 +282,7 @@ if (showcaseGrid && showcaseTiles.length > 1) {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       applyLayout();
-      startCycle(); // re-evaluate: crossing the 860px breakpoint starts/stops it
+      startCycle(); // re-evaluate: crossing the mobile/desktop boundary starts/stops it
     }, 150);
   });
 }

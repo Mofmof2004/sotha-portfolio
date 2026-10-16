@@ -634,10 +634,13 @@ h1, h2, h3 {
 
 /* ---------- Responsive ---------- */
 
-/* Tablets in portrait (iPad Mini/Air/Pro portrait ~768-834px) and phones:
-   collapse to the hamburger nav and single-column layout. iPad landscape
-   (1024px+) and laptops keep the full desktop nav. */
-@media (max-width: 860px) {
+/* Tablets in portrait (iPad Mini/Air/Pro portrait ~768-834px), phones, and
+   any portrait-oriented device regardless of width (e.g. a large tablet):
+   collapse to the hamburger nav and the swipe carousel. iPad landscape
+   (1024px+) and laptops keep the full desktop nav. This condition must stay
+   in sync with the isMobileLayout() check in main.js, or JS will compute
+   desktop squeeze-widths while CSS renders the carousel, causing overflow. */
+@media (max-width: 860px), (orientation: portrait) {
   .landing {
     flex-direction: column;
   }
