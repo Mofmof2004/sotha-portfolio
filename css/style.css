@@ -687,7 +687,12 @@ h1, h2, h3 {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    /* vh is calculated inconsistently in portrait on mobile browsers
+       (address bar show/hide throws it off); dvh tracks the actual visible
+       viewport and fixes it. Keep vh first as a fallback for older browsers
+       that don't support dvh. */
     height: 75vh;
+    height: 75dvh;
     scrollbar-width: none;
   }
 
@@ -703,6 +708,7 @@ h1, h2, h3 {
     scroll-snap-stop: always;
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
 
