@@ -531,7 +531,13 @@ h1, h2, h3 {
 
 .tile-media {
   position: relative;
+  /* height:100% depends on every ancestor in the chain (.tile-scroll,
+     .showcase-tile, .showcase-grid) resolving its own height correctly -
+     if any one of them fails on a given browser, this collapses to 0 and
+     the poster silently stops painting. 100vh is absolute and resolves
+     directly against the viewport, no parent dependency at all. */
   height: 100%;
+  height: 100vh;
   background-color: var(--bg);
   background-size: cover;
   background-position: center;
