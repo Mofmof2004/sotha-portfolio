@@ -1,0 +1,809 @@
+/* ---------- Reset & Base ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0b0b0d;
+  --bg-alt: #141416;
+  --text: #f3f3f0;
+  --text-muted: #a3a3a0;
+  --accent: #d4a24c;
+  --border: #2a2a2d;
+  --max-width: 1140px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 28px;
+  border: 1px solid var(--text);
+  border-radius: 2px;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ---------- Header / Nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 11, 13, 0.9);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding-top: env(safe-area-inset-top);
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 76px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent);
+}
+
+.nav-toggle {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  display: block;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at 30% 20%, var(--bg-alt), var(--bg) 70%);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  max-width: 480px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* ---------- Section heading ---------- */
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 96px 0 32px;
+}
+
+.link-arrow {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.page-header {
+  padding: 80px 0 40px;
+}
+
+.page-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 12px;
+}
+
+/* ---------- Grid / Cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-bottom: 96px;
+}
+
+.card-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--bg-alt);
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .card-thumb {
+  opacity: 0.8;
+}
+
+.card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Filters (Work page) ---------- */
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 48px 0 8px;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.filter-btn.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.work-grid {
+  margin-top: 40px;
+}
+
+.card.hidden {
+  display: none;
+}
+
+/* ---------- About ---------- */
+.about {
+  padding: 80px 0 96px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.about-photo {
+  aspect-ratio: 3 / 4;
+  background-color: var(--bg-alt);
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.about-text h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.about-text h2 {
+  font-size: 1.2rem;
+  margin: 32px 0 12px;
+}
+
+.skills-list li {
+  color: var(--text-muted);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- Film detail ---------- */
+.film-detail {
+  padding: 0 0 96px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.film-poster img {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.film-credits h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.credits-list {
+  margin-bottom: 32px;
+}
+
+.credit-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.credit-row dt {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.credit-row dd {
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  padding: 40px 0 96px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 64px;
+}
+
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+.form-row {
+  margin-bottom: 20px;
+}
+
+.form-row label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: inherit;
+  /* 16px minimum keeps iOS Safari from auto-zooming the page on focus */
+  font-size: 16px;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-status {
+  margin-top: 16px;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.contact-info h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  margin-top: 32px;
+}
+
+.contact-info h2:first-child {
+  margin-top: 0;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 20px;
+}
+
+.social-links a:hover {
+  color: var(--text);
+}
+
+/* ---------- Landing (sidebar + grid) ---------- */
+.landing {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 48px 32px;
+  padding-top: calc(48px + env(safe-area-inset-top));
+  padding-left: max(32px, env(safe-area-inset-left));
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.brand {
+  display: block;
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-links a {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.sidebar-links a:hover {
+  color: var(--accent);
+}
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.sidebar-bottom a {
+  transition: color 0.2s ease;
+}
+
+.sidebar-bottom a:hover {
+  color: var(--text);
+}
+
+.showcase-grid {
+  flex: 1;
+  display: flex;
+  height: 100vh;
+  gap: 2px;
+  background: var(--border);
+}
+
+.showcase-tile {
+  position: relative;
+  display: block;
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: flex-grow 0.9s ease-in-out, flex-basis 0.9s ease-in-out;
+}
+
+/* While a tile is the active/hovered one, let it scroll internally to
+   reveal the info panel below the poster. */
+.showcase-tile.is-expanded {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge */
+}
+
+.showcase-tile.is-expanded::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.tile-scroll {
+  height: 100%;
+}
+
+.tile-media {
+  position: relative;
+  height: 100%;
+  background-color: var(--bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: background-size 0.4s ease;
+}
+
+.showcase-tile:hover .tile-media {
+  background-size: 110%;
+}
+
+.tile-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 50%);
+  transition: opacity 0.25s ease;
+}
+
+.showcase-tile:hover .tile-media::after {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 60%);
+}
+
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  z-index: 1;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.showcase-tile.is-expanded .scroll-hint {
+  opacity: 1;
+  animation: scroll-hint-bounce 1.6s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+.tile-info {
+  flex: 0 0 auto;
+  padding: 40px 28px 64px;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+}
+
+.tile-info-title {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.tile-info-meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.tile-info-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* Trial: autoplay clip on the Lakhon Khol tile while it's expanded */
+.tile-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.tile-video.visible {
+  opacity: 1;
+}
+
+
+/* ---------- Responsive ---------- */
+
+/* Tablets in portrait (iPad Mini/Air/Pro portrait ~768-834px) and phones:
+   collapse to the hamburger nav and single-column layout. iPad landscape
+   (1024px+) and laptops keep the full desktop nav. */
+@media (max-width: 860px) {
+  .landing {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 24px;
+    padding-top: calc(24px + env(safe-area-inset-top));
+  }
+
+  .sidebar-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .sidebar-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .sidebar-bottom {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Swipe sideways between projects; each card scrolls vertically on its
+     own to reveal the info panel below the poster. */
+  .showcase-grid {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    height: 75vh;
+    scrollbar-width: none;
+  }
+
+  .showcase-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-tile {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+
+  .showcase-tile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-hint {
+    opacity: 1;
+    animation: scroll-hint-bounce 1.6s ease-in-out infinite;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 300px;
+  }
+
+  .nav-links li {
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 16px 24px;
+  }
+
+  .about-grid,
+  .contact,
+  .film-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo {
+    max-width: 320px;
+  }
+
+  .section-heading {
+    margin: 64px 0 24px;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .brand {
+    font-size: 2rem;
+  }
+
+  .hero {
+    min-height: 70vh;
+  }
+
+  .page-header {
+    padding: 56px 0 32px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .about,
+  .contact {
+    padding-top: 48px;
+  }
+
+  .filters {
+    margin: 32px 0 8px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Short landscape viewports (phones rotated) - the hero shouldn't force a
+   scroll before showing the call-to-action. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding: 48px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-tile {
+    transition: none;
+  }
+}

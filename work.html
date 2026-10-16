@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Work — Sotha</title>
+  <meta name="description" content="Film and video projects by Sotha.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav container">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html" class="active">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header container">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Work</h1>
+      <p class="hero-sub">Short films, documentaries, and visual projects.</p>
+    </section>
+
+    <section class="filters container">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="short-film">Short Film</button>
+      <button class="filter-btn" data-filter="documentary">Documentary</button>
+      <button class="filter-btn" data-filter="music-video">Music Video</button>
+    </section>
+
+    <section class="work-grid container grid" id="workGrid">
+      <article class="card" data-category="short-film">
+        <div class="card-thumb" style="background-image:url('assets/images/placeholder-1.jpg')"></div>
+        <h3>Project Title One</h3>
+        <p>Short Film &middot; 2025</p>
+      </article>
+
+      <article class="card" data-category="documentary">
+        <div class="card-thumb" style="background-image:url('assets/images/placeholder-2.jpg')"></div>
+        <h3>Project Title Two</h3>
+        <p>Documentary &middot; 2024</p>
+      </article>
+
+      <article class="card" data-category="music-video">
+        <div class="card-thumb" style="background-image:url('assets/images/placeholder-3.jpg')"></div>
+        <h3>Project Title Three</h3>
+        <p>Music Video &middot; 2024</p>
+      </article>
+
+      <article class="card" data-category="short-film">
+        <div class="card-thumb" style="background-image:url('assets/images/placeholder-4.jpg')"></div>
+        <h3>Project Title Four</h3>
+        <p>Short Film &middot; 2023</p>
+      </article>
+
+      <article class="card" data-category="documentary">
+        <div class="card-thumb" style="background-image:url('assets/images/placeholder-5.jpg')"></div>
+        <h3>Project Title Five</h3>
+        <p>Documentary &middot; 2023</p>
+      </article>
+
+      <article class="card" data-category="music-video">
+        <div class="card-thumb" style="background-image:url('assets/images/placeholder-6.jpg')"></div>
+        <h3>Project Title Six</h3>
+        <p>Music Video &middot; 2022</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>&copy; <span id="year"></span> Sotha. All rights reserved.</p>
+      <ul class="social-links">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Vimeo</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
