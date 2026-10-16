@@ -687,11 +687,10 @@ h1, h2, h3 {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    /* vh/dvh are both unreliable here across mobile browser versions, so
-       the real height is measured in JS and stored in --vh100 (see
-       main.js). Falls back to 75vh if JS hasn't run yet (e.g. first paint). */
-    height: 75vh;
-    height: calc(var(--vh100, 100vh) * 0.75);
+    /* Same method as the desktop grid (plain 100vh, no dvh/JS tricks) -
+       that one renders reliably, so match it instead of inventing a
+       separate mobile-only height calculation. */
+    height: 100vh;
     scrollbar-width: none;
   }
 

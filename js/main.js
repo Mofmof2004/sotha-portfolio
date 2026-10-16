@@ -3,18 +3,6 @@ document.querySelectorAll('#year').forEach((el) => {
   el.textContent = new Date().getFullYear();
 });
 
-// Real viewport height, as a CSS variable. Mobile browsers calculate `vh`
-// inconsistently (it's based on the viewport with the address bar hidden,
-// not what's actually visible), and `dvh` isn't supported on older Safari
-// versions - this works everywhere since it's measured directly, not a CSS
-// unit the browser has to get right.
-const setViewportHeightVar = () => {
-  document.documentElement.style.setProperty('--vh100', `${window.innerHeight}px`);
-};
-setViewportHeightVar();
-window.addEventListener('resize', setViewportHeightVar);
-window.addEventListener('orientationchange', setViewportHeightVar);
-
 // Mobile nav toggle
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
