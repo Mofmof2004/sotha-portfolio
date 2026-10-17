@@ -204,14 +204,18 @@ if (showcaseGrid && showcaseTiles.length > 1) {
       });
     } else {
       // Swipe carousel: every card is full-width on its own, so there's no
-      // "active" tile to squeeze around - just show each poster uncropped.
+      // "active" tile to squeeze around. Using 'contain' here (to show the
+      // whole image) left visible letterbox gaps on these tall/narrow
+      // posters against a typical phone's aspect ratio - 'cover' with each
+      // poster's tuned crop position fills the frame edge-to-edge instead,
+      // same as the original full-bleed poster-wall look.
       showcaseTiles.forEach((tile, i) => {
         tile.style.flexGrow = '';
         tile.style.flexShrink = '';
         tile.style.flexBasis = '';
         tile.classList.remove('is-expanded');
-        tileMedias[i].style.backgroundSize = 'contain';
-        tileMedias[i].style.backgroundPositionX = '50%';
+        tileMedias[i].style.backgroundSize = 'cover';
+        tileMedias[i].style.backgroundPositionX = originalPositions[i];
       });
     }
 
