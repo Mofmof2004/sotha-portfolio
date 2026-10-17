@@ -199,7 +199,14 @@ if (showcaseGrid && showcaseTiles.length > 1) {
         tile.style.flexShrink = '0';
         tile.classList.toggle('is-expanded', isActive);
         if (!isActive) tile.scrollTop = 0;
-        tileMedias[i].style.backgroundSize = isActive ? 'contain' : '';
+        // Keep 'cover' for the whole resize - it scales smoothly as the box
+        // grows/shrinks. Switching straight to 'contain' here made the
+        // active tile look like its image got swapped for a smaller one
+        // that then grew, since cover<->contain can't animate (not
+        // interpolatable values) - it just snaps instantly. The
+        // transitionend listener below switches the active tile to
+        // 'contain' only once it's actually finished growing.
+        tileMedias[i].style.backgroundSize = '';
         tileMedias[i].style.backgroundPositionX = isActive ? '50%' : originalPositions[i];
       });
     } else {
@@ -247,6 +254,15 @@ if (showcaseGrid && showcaseTiles.length > 1) {
       hoveredIndex = null;
       applyLayout();
       startCycle();
+    });
+
+    // Reveal the complete uncropped image only once this tile has actually
+    // finished growing (see the comment in applyLayout for why).
+    tile.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== 'flex-basis') return;
+      if (tile.classList.contains('is-expanded')) {
+        tileMedias[i].style.backgroundSize = 'contain';
+      }
     });
 
     // Scrolling into the info panel grows the frame a bit more (~15%);
