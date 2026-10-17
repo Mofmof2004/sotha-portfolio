@@ -343,6 +343,8 @@ h1, h2, h3 {
 .credit-row dd {
   font-size: 0.95rem;
   text-align: right;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 /* ---------- Contact ---------- */
@@ -717,6 +719,14 @@ h1, h2, h3 {
 
   .showcase-tile {
     flex: 0 0 100%;
+    /* Flex items default to min-width:auto, which refuses to shrink below
+       the width the item's own CONTENT needs (e.g. a long unbroken credit
+       name) - that's what was stopping this from narrowing further even
+       though the % width itself was correct. min-width:0 overrides that,
+       max-width:100vw is a hard ceiling so it can never exceed the screen
+       either way. */
+    min-width: 0;
+    max-width: 100vw;
     width: 100%;
     height: 100%;
     scroll-snap-align: start;
