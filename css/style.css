@@ -25,6 +25,12 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Safety net: nothing (an embed defaulting to its own size before CSS
+     applies, a miscalculated width, etc.) should ever be able to push the
+     whole page wider than the screen. The carousel's own horizontal
+     scroll lives on .showcase-grid, a separate element, so this doesn't
+     interfere with that. */
+  overflow-x: hidden;
 }
 
 a {

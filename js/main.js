@@ -121,6 +121,12 @@ if (showcaseGrid && showcaseTiles.length > 1) {
     videoPlaceholders.forEach((placeholder, i) => {
       if (!placeholder) return;
       players[i] = new YT.Player(placeholder, {
+        // Without these, the API defaults the iframe to 640x390 (as real
+        // width/height HTML attributes) until CSS overrides it a moment
+        // later - on mobile that brief default-width flash can be enough
+        // to throw off the carousel's scroll-snap measurements.
+        width: '100%',
+        height: '100%',
         videoId: placeholder.dataset.ytId,
         playerVars: {
           controls: 0,
