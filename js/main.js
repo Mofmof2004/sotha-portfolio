@@ -77,6 +77,8 @@ if (showcaseGrid && showcaseTiles.length > 1) {
   let hoveredIndex = null;
   let intervalId = null;
   let lastDisplayIndex = null;
+  let revealContainTimer = null;
+  const EXPAND_TRANSITION_MS = 900; // matches .showcase-tile's flex-basis transition
 
   // Trial: on tiles that carry a clip (via YouTube, unlisted), show the
   // poster for 3s then play the clip in full for as long as it's being
@@ -203,13 +205,22 @@ if (showcaseGrid && showcaseTiles.length > 1) {
         // grows/shrinks. Switching straight to 'contain' here made the
         // active tile look like its image got swapped for a smaller one
         // that then grew, since cover<->contain can't animate (not
-        // interpolatable values) - it just snaps instantly. The
-        // transitionend listener below switches the active tile to
-        // 'contain' only once it's actually finished growing.
+        // interpolatable values) - it just snaps instantly. The timer
+        // below switches the active tile to 'contain' only once it's
+        // actually finished growing.
         tileMedias[i].style.backgroundSize = '';
         tileMedias[i].style.backgroundPositionX = isActive ? '50%' : originalPositions[i];
       });
+
+      // transitionend isn't reliably dispatched for flex-basis across
+      // browsers, so use a timer matched to the transition duration instead
+      // of depending on the event actually firing.
+      clearTimeout(revealContainTimer);
+      revealContainTimer = setTimeout(() => {
+        tileMedias[displayIndex].style.backgroundSize = 'contain';
+      }, EXPAND_TRANSITION_MS);
     } else {
+      clearTimeout(revealContainTimer);
       // Swipe carousel: every card is full-width on its own, so there's no
       // "active" tile to squeeze around. Use 'contain' so the complete
       // poster is always visible, uncropped - any letterbox gaps (when a
@@ -254,15 +265,6 @@ if (showcaseGrid && showcaseTiles.length > 1) {
       hoveredIndex = null;
       applyLayout();
       startCycle();
-    });
-
-    // Reveal the complete uncropped image only once this tile has actually
-    // finished growing (see the comment in applyLayout for why).
-    tile.addEventListener('transitionend', (e) => {
-      if (e.propertyName !== 'flex-basis') return;
-      if (tile.classList.contains('is-expanded')) {
-        tileMedias[i].style.backgroundSize = 'contain';
-      }
     });
 
     // Scrolling into the info panel grows the frame a bit more (~15%);
