@@ -697,6 +697,11 @@ h1, h2, h3 {
        that one renders reliably, so match it instead of inventing a
        separate mobile-only height calculation. */
     height: 100vh;
+    /* No gap here (unlike desktop's filmstrip seams) - only one card is
+       visible at a time, and a gap would offset each card's scroll-snap
+       position by a few px per card, so cards would drift narrower than
+       the actual screen width the further you swipe. */
+    gap: 0;
     scrollbar-width: none;
   }
 
